@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Golden Key
   description: So there must be a golder door .....
   isCollectable: 1
+  canBeExamined: 1

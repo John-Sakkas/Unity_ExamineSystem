@@ -13,7 +13,7 @@ namespace ThirdPerson_InspectSystem
         public float minZoomDistance;
         public float maxZoomDistance;
 
-        private bool _isExamineOn;
+        public bool _isExamineOn;
         private Camera _inspectCamera;
         private Vector3 _parentSize;
         private Vector3 _startPosition;
@@ -53,10 +53,10 @@ namespace ThirdPerson_InspectSystem
                 if(_hit.collider.gameObject.GetComponent<InteractableItem>() != null)
                 {
                     _examineIndicatorUI.SetActive(true);
+                    _examinedItem = _hit.collider.gameObject.GetComponent<InteractableItem>();
                     if(Input.GetKeyDown(KeyCode.E) && !_isExamineOn)
                     {
                         _isExamineOn = true;
-                        _examinedItem = _hit.collider.gameObject.GetComponent<InteractableItem>();
                         var examinedItemTransform = _examinedItem.transform;
                     
                         //keep the old values 
@@ -91,26 +91,13 @@ namespace ThirdPerson_InspectSystem
                 
                 if(Input.GetKeyDown(KeyCode.Escape))
                 {
-                    _isExamineOn =false;
-                    _examinedItem.gameObject.transform.parent = null;
-                    _examinedItem.transform.position = _oldTransformValues.oldPosition;
-                    _examinedItem.transform.rotation = _oldTransformValues.oldRotation;
-                    _examinedItem.transform.localScale = _oldTransformValues.oldScale;
-                    _examinedItem.gameObject.layer = _oldTransformValues.layer;
-
-                    _inspectPosition.localPosition = _oldTransformValues.defaultInspectPosition;
-                    _inspectPosition.localRotation = _oldTransformValues.defaultInspectRotation;
-
-                    _examineIndicatorOptionsUI.SetActive(false);
-                    _inspectCamera.gameObject.SetActive(false);
-                    _postProcessVolume.enabled = false;
-                    _player.SetActive(true);
+                    ResetItem();
                 }
 
                 if (Input.GetMouseButton(0))
                 {
-                    float rotX = Input.GetAxis("Mouse X") * rotationSpeed;
-                    float rotY = Input.GetAxis("Mouse Y") * rotationSpeed;
+                    var rotX = Input.GetAxis("Mouse X") * rotationSpeed;
+                    var rotY = Input.GetAxis("Mouse Y") * rotationSpeed;
                     _inspectPosition.Rotate(Vector3.up, -rotX, Space.World);
                     _inspectPosition.Rotate(Vector3.right, rotY, Space.World);
                 }
@@ -119,9 +106,10 @@ namespace ThirdPerson_InspectSystem
                 {
                     var cameraTransform = gameObject.transform;
                 
-                    float zoom = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-                    Vector3 zoomDirection = cameraTransform.forward * zoom;
-                    float cameraDistance = Vector3.Distance(cameraTransform.position, _inspectPosition.transform.position);
+                    var zoom = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+                    var zoomDirection = cameraTransform.forward * zoom;
+                    var cameraDistance = Vector3.Distance(cameraTransform.position, _inspectPosition.transform
+                    .position);
 
                     // Clamp the zoom to stay within min and max distances
                     if ((cameraDistance >= minZoomDistance || zoom > 0) && (cameraDistance <= maxZoomDistance || zoom < 0))
@@ -133,6 +121,25 @@ namespace ThirdPerson_InspectSystem
 
             // Optional: Draw the ray in the Scene view for debugging
             Debug.DrawLine(_startPosition, _startPosition + _direction * raycastDistance, Color.red);
+        }
+
+        private void ResetItem()
+        {
+            _isExamineOn = false;
+            
+            _examinedItem.gameObject.transform.parent = null;
+            _examinedItem.transform.position = _oldTransformValues.oldPosition;
+            _examinedItem.transform.rotation = _oldTransformValues.oldRotation;
+            _examinedItem.transform.localScale = _oldTransformValues.oldScale;
+            _examinedItem.gameObject.layer = _oldTransformValues.layer;
+
+            _inspectPosition.localPosition = _oldTransformValues.defaultInspectPosition;
+            _inspectPosition.localRotation = _oldTransformValues.defaultInspectRotation;
+
+            _examineIndicatorOptionsUI.SetActive(false);
+            _inspectCamera.gameObject.SetActive(false);
+            _postProcessVolume.enabled = false;
+            _player.SetActive(true);
         }
     }
 }

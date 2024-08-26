@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Items
@@ -7,8 +8,5 @@ namespace Assets.Scripts.Items
         public string itemName;
         public string description;
         public bool isCollectable;
-
-        // Method to handle interaction (can be overridden in derived classes)
-        public abstract string Interact();
     }
 }

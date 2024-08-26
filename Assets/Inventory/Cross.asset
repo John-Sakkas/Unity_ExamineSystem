@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Cross
   description: Simple Cross
-  isCollectable: 0
+  isCollectable: 1
+  canBeExamined: 1
