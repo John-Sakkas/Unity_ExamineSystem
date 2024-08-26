@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3832630560557720287}
   - component: {fileID: 2359844817525263346}
+  - component: {fileID: 4283417860859044770}
   m_Layer: 0
-  m_Name: InspectedPosition
+  m_Name: InspectPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,3 +54,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4283417860859044770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557984431303753934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d0e6b04c236dd8438689d270b083f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
