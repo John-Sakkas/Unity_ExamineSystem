@@ -16,7 +16,6 @@ namespace ThirdPerson_InspectSystem
         public float maxZoomDistance = 4;
 
         private bool _isExamineOn;
-        private Camera _inspectCamera;
         private Vector3 _parentSize;
         private Vector3 _startPosition;
         private Vector3 _direction;
@@ -33,8 +32,7 @@ namespace ThirdPerson_InspectSystem
         private void Start()
         {
             _inspectPosition = gameObject.GetComponentInChildren<ItemInspectorPosition>().transform;
-            _inspectCamera = gameObject.GetComponentInChildren<ItemInspectorCamera>(true).GetComponent<Camera>();
-            _postProcessVolume = gameObject.GetComponent<PostProcessVolume>();
+            _postProcessVolume = gameObject.GetComponent<Camera>().GetComponent<PostProcessVolume>();
             _player = GameObject.FindWithTag("Player");
             _playerHeadPoint = FindObjectOfType<PointerStartPosition>().transform;
             _examineIndicatorUI = FindObjectOfType<ExamineUI>(true).gameObject;
@@ -71,7 +69,6 @@ namespace ThirdPerson_InspectSystem
                         examinedItemTransform.localRotation = Quaternion.identity;
 
                         _examineIndicatorOptionsUI.SetActive(true);
-                        _inspectCamera.gameObject.SetActive(true);
                         _postProcessVolume.enabled = true;
                         _player.SetActive(false);
 
@@ -140,7 +137,6 @@ namespace ThirdPerson_InspectSystem
             _inspectPosition.localRotation = _oldTransformValues.DefaultInspectRotation;
 
             _examineIndicatorOptionsUI.SetActive(false);
-            _inspectCamera.gameObject.SetActive(false);
             _postProcessVolume.enabled = false;
             _player.SetActive(true);
         }

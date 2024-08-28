@@ -1000,10 +1000,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InspectCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 2716827875492741009, guid: 4c7bb2b5889928f4db4a6591792271a2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8857370348103506649, guid: 4c7bb2b5889928f4db4a6591792271a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
