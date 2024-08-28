@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ThirdPerson_InspectSystem
+namespace ThirdPerson_InspectSystem.ComponentFinderScripts
 {
     public class ItemInspectorPosition : MonoBehaviour
     {

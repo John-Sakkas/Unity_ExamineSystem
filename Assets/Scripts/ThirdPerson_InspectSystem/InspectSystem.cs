@@ -1,6 +1,8 @@
+using Items;
+using Items.ItemFunctions;
+using ThirdPerson_InspectSystem.ComponentFinderScripts;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.Serialization;
 
 namespace ThirdPerson_InspectSystem
 {
@@ -8,12 +10,12 @@ namespace ThirdPerson_InspectSystem
     {
         public LayerMask layerMask;
         public float raycastDistance = 2.0f;
-        public float rotationSpeed;
-        public float zoomSpeed;
-        public float minZoomDistance;
-        public float maxZoomDistance;
+        public float rotationSpeed = 1;
+        public float zoomSpeed = 2;
+        public float minZoomDistance = 2;
+        public float maxZoomDistance = 4;
 
-        public bool _isExamineOn;
+        private bool _isExamineOn;
         private Camera _inspectCamera;
         private Vector3 _parentSize;
         private Vector3 _startPosition;
@@ -24,9 +26,9 @@ namespace ThirdPerson_InspectSystem
         private GameObject _examineIndicatorUI;
         private GameObject _examineIndicatorOptionsUI;
         private RaycastHit _hit;
-        private readonly ItemOldValues _oldTransformValues = new();
         private InteractableItem _examinedItem;
         private PostProcessVolume _postProcessVolume;
+        private readonly ItemOldValues _oldTransformValues = new();
 
         private void Start()
         {
@@ -60,8 +62,7 @@ namespace ThirdPerson_InspectSystem
                         var examinedItemTransform = _examinedItem.transform;
                     
                         //keep the old values 
-                        _oldTransformValues.OldValuesSet(examinedItemTransform.position,examinedItemTransform.rotation,examinedItemTransform.localScale,
-                            _examinedItem.gameObject.layer,_inspectPosition.localPosition,_inspectPosition.localRotation);
+                        _oldTransformValues.OldValuesSet(examinedItemTransform,_examinedItem.gameObject.layer, _inspectPosition.transform);
 
                         //Change to the new values
                         _examinedItem.gameObject.layer = LayerMask.NameToLayer("Examine");
@@ -74,6 +75,8 @@ namespace ThirdPerson_InspectSystem
                         _postProcessVolume.enabled = true;
                         _player.SetActive(false);
 
+                        Debug.Log("Examine item : " +_examinedItem.itemData.itemName);
+                        
                         ItemResize.ResizeObject(_examinedItem.gameObject, _parentSize);
                     }
                 }
@@ -85,8 +88,8 @@ namespace ThirdPerson_InspectSystem
             {
                 if(Input.GetKeyDown(KeyCode.R))
                 {
-                    _inspectPosition.localPosition = _oldTransformValues.defaultInspectPosition;
-                    _inspectPosition.localRotation = _oldTransformValues.defaultInspectRotation;
+                    _inspectPosition.localPosition = _oldTransformValues.DefaultInspectPosition;
+                    _inspectPosition.localRotation = _oldTransformValues.DefaultInspectRotation;
                 }
                 
                 if(Input.GetKeyDown(KeyCode.Escape))
@@ -128,13 +131,13 @@ namespace ThirdPerson_InspectSystem
             _isExamineOn = false;
             
             _examinedItem.gameObject.transform.parent = null;
-            _examinedItem.transform.position = _oldTransformValues.oldPosition;
-            _examinedItem.transform.rotation = _oldTransformValues.oldRotation;
-            _examinedItem.transform.localScale = _oldTransformValues.oldScale;
-            _examinedItem.gameObject.layer = _oldTransformValues.layer;
+            _examinedItem.transform.position = _oldTransformValues.OldPosition;
+            _examinedItem.transform.rotation = _oldTransformValues.OldRotation;
+            _examinedItem.transform.localScale = _oldTransformValues.OldScale;
+            _examinedItem.gameObject.layer = _oldTransformValues.Layer;
 
-            _inspectPosition.localPosition = _oldTransformValues.defaultInspectPosition;
-            _inspectPosition.localRotation = _oldTransformValues.defaultInspectRotation;
+            _inspectPosition.localPosition = _oldTransformValues.DefaultInspectPosition;
+            _inspectPosition.localRotation = _oldTransformValues.DefaultInspectRotation;
 
             _examineIndicatorOptionsUI.SetActive(false);
             _inspectCamera.gameObject.SetActive(false);

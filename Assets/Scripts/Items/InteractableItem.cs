@@ -1,13 +1,15 @@
+using Items.ScriptableItem;
 using UnityEngine;
-using Assets.Scripts.Items;
-using Unity.VisualScripting;
 
-public class InteractableItem : MonoBehaviour
+namespace Items
 {
-    public ScriptableObjectCreation itemData;    
-
-    public void Start()
+    public class InteractableItem : MonoBehaviour
     {
-        gameObject.layer = LayerMask.NameToLayer("Interactable");
+        public NewInteractableItem itemData;    
+
+        public void Start()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Interactable");
+        }
     }
 }

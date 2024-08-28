@@ -1,12 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Items
+namespace Items.ScriptableItem
 {
     public abstract class ItemBase : ScriptableObject
     {
         public string itemName;
         public string description;
-        public bool isCollectable;
     }
 }

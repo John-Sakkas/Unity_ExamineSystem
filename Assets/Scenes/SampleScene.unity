@@ -382,7 +382,6 @@ MonoBehaviour:
   zoomSpeed: 2
   minZoomDistance: 2
   maxZoomDistance: 3
-  _isExamineOn: 0
 --- !u!114 &1127082182
 MonoBehaviour:
   m_ObjectHideFlags: 0

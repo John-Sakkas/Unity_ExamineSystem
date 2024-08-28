@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class ExamineUIOptions : MonoBehaviour
+namespace ThirdPerson_InspectSystem.ComponentFinderScripts
 {
-        //This script is only so the InspectSystem can find the object using the GetComponent<>()
+        public class ExamineUIOptions : MonoBehaviour
+        {
+                //This script is only so the InspectSystem can find the object using the GetComponent<>()
 
-        //You need to add this script to the UI GameObject so you can activate / deactivate the object
+                //You need to add this script to the UI GameObject so you can activate / deactivate the object
+        }
 }
