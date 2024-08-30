@@ -6,7 +6,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace ThirdPerson_InspectSystem
 {
-    public class InspectSystem : MonoBehaviour
+    public class ExamineSystem : MonoBehaviour
     {
         public LayerMask layerMask;
         public float raycastDistance = 2.0f;
