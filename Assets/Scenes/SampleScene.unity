@@ -335,6 +335,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 2d8706a20ecca0045be4f7592b6fa40c, type: 2}
+  rotationSpeed: 1
+  zoomSpeed: 2
+  minZoomDistance: 2
+  maxZoomDistance: 4
 --- !u!1 &1025953886 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2568582057033876513, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
@@ -378,10 +382,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   raycastDistance: 2
-  rotationSpeed: 5
-  zoomSpeed: 2
-  minZoomDistance: 2
-  maxZoomDistance: 3
 --- !u!114 &1127082182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,6 +720,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: f7eaf895a7556494b944808b2612cab4, type: 2}
+  rotationSpeed: 1
+  zoomSpeed: 2
+  minZoomDistance: 2
+  maxZoomDistance: 4
 --- !u!65 &1519210060
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -926,6 +930,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: e9cb48d3d6a54aa44a6c81f8b4b7f25f, type: 2}
+  rotationSpeed: 1
+  zoomSpeed: 2
+  minZoomDistance: 2
+  maxZoomDistance: 4
 --- !u!1001 &2017661043
 PrefabInstance:
   m_ObjectHideFlags: 0

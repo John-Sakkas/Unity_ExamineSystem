@@ -10,10 +10,6 @@ namespace ThirdPerson_InspectSystem
     {
         public LayerMask layerMask;
         public float raycastDistance = 2.0f;
-        public float rotationSpeed = 1;
-        public float zoomSpeed = 2;
-        public float minZoomDistance = 2;
-        public float maxZoomDistance = 4;
 
         private bool _isExamineOn;
         private Vector3 _parentSize;
@@ -85,60 +81,33 @@ namespace ThirdPerson_InspectSystem
             {
                 if(Input.GetKeyDown(KeyCode.R))
                 {
-                    _inspectPosition.localPosition = _oldTransformValues.DefaultInspectPosition;
-                    _inspectPosition.localRotation = _oldTransformValues.DefaultInspectRotation;
+                    _examinedItem.ResetItem(_oldTransformValues);
                 }
                 
                 if(Input.GetKeyDown(KeyCode.Escape))
                 {
-                    ResetItem();
+                    _isExamineOn = false;
+
+                    _examinedItem.ExitExamine(_oldTransformValues);
+                    
+                    _examineIndicatorOptionsUI.SetActive(false);
+                    _postProcessVolume.enabled = false;
+                    _player.SetActive(true);
                 }
 
                 if (Input.GetMouseButton(0))
                 {
-                    var rotX = Input.GetAxis("Mouse X") * rotationSpeed;
-                    var rotY = Input.GetAxis("Mouse Y") * rotationSpeed;
-                    _inspectPosition.Rotate(Vector3.up, -rotX, Space.World);
-                    _inspectPosition.Rotate(Vector3.right, rotY, Space.World);
+                    _examinedItem.ItemRotation();
                 }
 
                 if (Input.GetAxis("Mouse ScrollWheel") != 0f)
                 {
-                    var cameraTransform = gameObject.transform;
-                
-                    var zoom = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-                    var zoomDirection = cameraTransform.forward * zoom;
-                    var cameraDistance = Vector3.Distance(cameraTransform.position, _inspectPosition.transform
-                    .position);
-
-                    // Clamp the zoom to stay within min and max distances
-                    if ((cameraDistance >= minZoomDistance || zoom > 0) && (cameraDistance <= maxZoomDistance || zoom < 0))
-                    {
-                        _inspectPosition.transform.position += zoomDirection;
-                    }
+                    _examinedItem.ItemZoom(gameObject.transform);
                 }
             }
 
             // Optional: Draw the ray in the Scene view for debugging
             Debug.DrawLine(_startPosition, _startPosition + _direction * raycastDistance, Color.red);
-        }
-
-        private void ResetItem()
-        {
-            _isExamineOn = false;
-            
-            _examinedItem.gameObject.transform.parent = null;
-            _examinedItem.transform.position = _oldTransformValues.OldPosition;
-            _examinedItem.transform.rotation = _oldTransformValues.OldRotation;
-            _examinedItem.transform.localScale = _oldTransformValues.OldScale;
-            _examinedItem.gameObject.layer = _oldTransformValues.Layer;
-
-            _inspectPosition.localPosition = _oldTransformValues.DefaultInspectPosition;
-            _inspectPosition.localRotation = _oldTransformValues.DefaultInspectRotation;
-
-            _examineIndicatorOptionsUI.SetActive(false);
-            _postProcessVolume.enabled = false;
-            _player.SetActive(true);
         }
     }
 }
