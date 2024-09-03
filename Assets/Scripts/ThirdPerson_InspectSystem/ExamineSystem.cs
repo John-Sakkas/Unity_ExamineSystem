@@ -29,7 +29,7 @@ namespace ThirdPerson_InspectSystem
         {
             _inspectPosition = gameObject.GetComponentInChildren<ItemInspectorPosition>().transform;
             _postProcessVolume = gameObject.GetComponent<Camera>().GetComponent<PostProcessVolume>();
-            _player = GameObject.FindWithTag("Player");
+            _player = GameObject.FindWithTag(ConstantValues.PlayerTag);
             _playerHeadPoint = FindObjectOfType<PointerStartPosition>().transform;
             _examineIndicatorUI = FindObjectOfType<ExamineUI>(true).gameObject;
             _examineIndicatorOptionsUI = FindObjectOfType<ExamineUIOptions>(true).gameObject;
@@ -59,7 +59,7 @@ namespace ThirdPerson_InspectSystem
                         _oldTransformValues.OldValuesSet(examinedItemTransform,_examinedItem.gameObject.layer, _inspectPosition.transform);
 
                         //Change to the new values
-                        _examinedItem.gameObject.layer = LayerMask.NameToLayer("Examine");
+                        _examinedItem.gameObject.layer = LayerMask.NameToLayer(ConstantValues.ExamineLayer);
                         examinedItemTransform.SetParent(_inspectPosition.transform);
                         examinedItemTransform.localPosition = Vector3.zero;
                         examinedItemTransform.localRotation = Quaternion.identity;
@@ -100,7 +100,7 @@ namespace ThirdPerson_InspectSystem
                     _examinedItem.ItemRotation();
                 }
 
-                if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+                if (Input.GetAxis(ConstantValues.ScrollWheel) != 0f)
                 {
                     _examinedItem.ItemZoom(gameObject.transform);
                 }

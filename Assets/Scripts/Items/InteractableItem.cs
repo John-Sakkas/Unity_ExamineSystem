@@ -17,20 +17,20 @@ namespace Items
         public void Start()
         {
             _inspectTransform = FindObjectOfType<ItemInspectorPosition>().transform;
-            gameObject.layer = LayerMask.NameToLayer("Interactable");
+            gameObject.layer = LayerMask.NameToLayer(ConstantValues.InteractableLayer);
         }
 
         public void ItemRotation()
         {
-            var rotX = Input.GetAxis("Mouse X") * rotationSpeed;
-            var rotY = Input.GetAxis("Mouse Y") * rotationSpeed;
+            var rotX = Input.GetAxis(ConstantValues.MouseX) * rotationSpeed;
+            var rotY = Input.GetAxis(ConstantValues.MouseY) * rotationSpeed;
             _inspectTransform.Rotate(Vector3.up, -rotX, Space.World);
             _inspectTransform.Rotate(Vector3.right, rotY, Space.World);
         }
 
         public void ItemZoom(Transform mainCamera)
         {
-            var zoom = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+            var zoom = Input.GetAxis(ConstantValues.ScrollWheel) * zoomSpeed;
             var zoomDirection = mainCamera.forward * zoom;
             var cameraDistance = Vector3.Distance(mainCamera.position, _inspectTransform.transform
                 .position);
